@@ -1,38 +1,266 @@
-.App {
-  text-align: center;
+.main_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+.Compression_option_wrapper {
+    padding: 0px 100px;
+    width: 36%;
+    border-right: 1px solid gray;
+}
+.Resolution_wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightslategray;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.select_tag {
+    margin-top: 10px;
+    border: none;
+    color: gray;
+}
+.Compression_wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightslategray;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.Compression_header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.Estimated_size_wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.Estimated_heading {
+    display: flex;
+    flex-direction: column;
+}
+.Estimated_sizeing {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+.reduce_size {
+    font-size: 14px;
+    color: gray;
+}
+.current_size {
+    font-size: 28px;
+}
+.orginal_size {
+    color: gray;
+    text-decoration: line-through;
+}
+.compress_button {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    margin: 10px 0px;
+    cursor: pointer;
+}
+.Image_wrapper {
+    /* border: 1px solid black; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.Image_container {
+    width: 700px;
+    height: 550px;
+    border: 1px solid black;
+    justify-content: center;
+    border-radius: 20px;
+    background: linear-gradient(to bottom, #ffded8, #95c3c7);
+    position: relative;
+}
+.inner_image_container {
+  width: 92%;
+  margin: 4% 0 0 4%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: absolute;
+}
+.compress_image_container {
+  width: 92%;
+  margin: 4% 0 0 4%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: absolute;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.content_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.input_wrapper {
+    width: 100%;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.Image_Input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #ffded8, #95c3c7);
+    border-radius: 20px;
+}
+.image_wrapper {
+    width: 1100px;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 22px;
+    padding: 20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.download_button_wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 4%;
+    top: 450px;
+    position: relative;
+}
+/* .Upload_button {
+  background-color: black;
   color: white;
-}
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #f78b77, #39beca);
+} */
 
-.App-link {
-  color: #61dafb;
-}
+/* CSS */
+.download_button {
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 100px;
+    background-color: #4c43cd;
+    background-image: radial-gradient(
+            93% 87% at 87% 89%,
+            rgba(0, 0, 0, 0.23) 0%,
+            transparent 86.18%
+        ),
+        radial-gradient(
+            66% 87% at 26% 20%,
+            rgba(255, 255, 255, 0.41) 0%,
+            rgba(255, 255, 255, 0) 69.79%,
+            rgba(255, 255, 255, 0) 100%
+        );
+    box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    font-size: 16px;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    border: 0;
+
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    cursor: pointer;
+}
+/* .download_button {
+  background-color: black;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 50px;
+  background: linear-gradient(to bottom, #f78b77, #39beca);
+} */
+.selected_image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.size_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.width_height {
+    display: flex;
+    flex-direction: column;
+}
+input[type='file'] {
+    padding: 4px;
+    margin: -4px;
+    position: relative;
+    outline: none;
+
+    /* File Selector Button Styles */
+    &::file-selector-button {
+        border-radius: 4px;
+        padding: 0 16px;
+        height: 40px;
+        cursor: pointer;
+        background-color: white;
+        border: 1px solid rgba(#000, 0.16);
+        box-shadow: 0px 1px 0px rgba(#000, 0.05);
+        margin-right: 16px;
+        width: 132px;
+        color: transparent;
+
+        @supports (-moz-appearance: none) {
+            color: var(--primary-color);
+        }
+
+        &:hover {
+            background-color: #f3f4f6;
+        }
+
+        &:active {
+            background-color: #e5e7eb;
+        }
+    }
+    &::before {
+        position: absolute;
+        pointer-events: none;
+        top: 14px;
+        left: 16px;
+        height: 20px;
+        width: 20px;
+        content: '';
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+    }
+
+    &::after {
+        position: absolute;
+        pointer-events: none;
+        top: 16px;
+        left: 40px;
+        color: var(--primary-color);
+        content: 'Upload File';
+    }
+    &:focus-within::file-selector-button,
+    &:focus::file-selector-button {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
 }

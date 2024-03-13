@@ -1,0 +1,22 @@
+.navbar_wrapper {
+  padding: 30px 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(to right , red, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.button_wrapper {
+  display: flex;
+  gap: 30px;
+}
+.loginButton {
+  border-radius: 20px;
+  padding: 10px 18px;
+  border: none;
+}

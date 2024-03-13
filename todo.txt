@@ -1,0 +1,17 @@
+List of thing to be done
+
+1. Show comporesison precentage.
+2. Time it took to comporesison
+3. UI for page
+4. Featrue to convert jpg to png,web4
+5. Download button
+6. Use worker in nodejs
+    image goes to nodejs -> nodejs assign task to worker -> worker gives back response -> send image to frontend
+7. handling cors to enable only spacific domain.
+
+
+
+
+
+10. Give option to user to comporess on backend or on frontend.(will use webassembly)
+11. Setup PM2 to make service available.
