@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import '../App.css'
 import { GoArrowRight } from 'react-icons/go'
 import { MdOutlineFileUpload } from 'react-icons/md'
-import { debounce } from '../utils'
+import { debounce, getImageSize } from '../utils'
+import { ImageCompare } from './ImageCompare'
 const ImageCompressor = () => {
     const [selectedFile, setSelectedFile] = useState(null)
     const [compressedImage, setCompressedImage] = useState()
-    const [resolution, setResolution] = useState(800)
     const [compression, setCompression] = useState(100)
-    const [selectedFileSize, setSelectedFileSize] = useState()
-    const [estimatedReducedSize, setEstimatedReducedSize] = useState()
-    const [newCompresssion, setNewCompression] = useState()
+    const [selectedFileSize, setSelectedFileSize] = useState(0)
+    const [estimatedReducedSize, setEstimatedReducedSize] = useState(0)
 
     const handleFileChange = (e) => {
         const file = e.target.files[0]
@@ -18,14 +17,11 @@ const ImageCompressor = () => {
         setCompressedImage(null)
 
         if (file) {
-            let fileSize
-            if (file.size < 1024 * 1024) {
-                fileSize = (file.size / 1024).toFixed(2) + ' KB'
-            } else {
-                fileSize = (file.size / (1024 * 1024)).toFixed(2) + ' MB'
-            }
-
+            const fileSize = file.size
             setSelectedFileSize(fileSize)
+            const originalSize = file.size
+            const estimatedSize = originalSize * (compression / 100)
+            setEstimatedReducedSize(estimatedSize.toFixed(2))
         } else {
             setSelectedFileSize(null)
         }
@@ -33,10 +29,10 @@ const ImageCompressor = () => {
     const handleCompressionChange = useCallback(
         debounce((e) => {
             const newCompression = parseInt(e.target.value, 10)
-            const originalSizeInMB = selectedFile.size / (1024 * 1024)
-            const estimatedSize = originalSizeInMB * (1 - newCompression / 100)
-            setEstimatedReducedSize(estimatedSize.toFixed(2) + ' MB')
-        }, 200),
+            const originalSize = selectedFile.size
+            const estimatedSize = originalSize * (newCompression / 100)
+            setEstimatedReducedSize(estimatedSize.toFixed(2))
+        }, 100),
         [selectedFile, setEstimatedReducedSize, setCompression]
     )
     const compressImage = async () => {
@@ -70,9 +66,19 @@ const ImageCompressor = () => {
         downloadLink.click()
         document.body.removeChild(downloadLink)
     }
-    useEffect(() => {
-        setNewCompression(selectedFileSize - estimatedReducedSize)
-    }, [])
+
+    const inputImageURL = useMemo(() => {
+        if (selectedFile) {
+            return URL.createObjectURL(selectedFile)
+        }
+    }, [selectedFile])
+
+    const compressedImageURL = useMemo(() => {
+        if (compressedImage) {
+            return URL.createObjectURL(compressedImage)
+        }
+    }, [compressedImage])
+
     return (
         <div className="main_container">
             <div className="Compression_option_wrapper">
@@ -97,7 +103,7 @@ const ImageCompressor = () => {
                         <input
                             type="range"
                             min="0"
-                            max="200"
+                            max="100"
                             step="1"
                             value={compression}
                             onChange={(e) => {
@@ -116,12 +122,20 @@ const ImageCompressor = () => {
                         <div>Estimated</div>
                         <div>Reduced Size</div>
                         <div className="reduce_size">
-                            Almost {estimatedReducedSize} MB reduce
+                            Almost{' '}
+                            {getImageSize(
+                                selectedFileSize - estimatedReducedSize
+                            )}{' '}
+                            reduce
                         </div>
                     </div>
                     <div className="Estimated_sizeing">
-                        <div className="current_size">{newCompresssion}</div>
-                        <div className="orginal_size">{selectedFileSize}</div>
+                        <div className="current_size">
+                            {getImageSize(estimatedReducedSize)}
+                        </div>
+                        <div className="orginal_size">
+                            {getImageSize(selectedFileSize)}
+                        </div>
                     </div>
                 </div>
                 <div className="compress_button" onClick={compressImage}>
@@ -189,42 +203,11 @@ const ImageCompressor = () => {
       </div> */}
             <div className="Image_wrapper">
                 <div className="Image_container">
-                    {selectedFile ? (
-                        <>  
-                            
-                            <div className="inner_image_container">
-                                <img
-                                    src={URL.createObjectURL(selectedFile)}
-                                    alt="Selected"
-                                    width="100%"
-                                />
-                            </div>
-                            {compressedImage && (
-                                <div className="compress_image_container">
-                                    <img
-                                        src={URL.createObjectURL(
-                                            compressedImage
-                                        )}
-                                        alt="Compressed"
-                                        width="100%"
-                                        // height="200px"
-                                    />
-                                </div>
-                            )}
-                            <div className="download_button_wrapper">
-                                <div className="download_button">
-                                    <MdOutlineFileUpload />
-                                    New Image
-                                </div>
-
-                                <div
-                                    className="download_button"
-                                    onClick={handleDownload}
-                                >
-                                    Download
-                                </div>
-                            </div>
-                        </>
+                    {inputImageURL&&compressedImageURL ? (
+                        <ImageCompare
+                            image1={inputImageURL}
+                            image2={compressedImageURL}
+                        />
                     ) : (
                         <div className="Image_Input">
                             <input type="file" onChange={handleFileChange} />
